@@ -5,10 +5,10 @@ import axios from "axios";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { BsBasket2 } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import wirelessHeadphonesImg from "../assets/wireless-headphones.webp";
-import wirelessMouseImg from "../assets/wireless-mouse.webp";
-import bluetoothSpeakerImg from "../assets/bluetooth-speaker.webp";
-import smartWatchImg from "../assets/smart-watch.webp";
+import wirelessHeadphonesImg from "../assets/headphones.jpg";
+import wirelessMouseImg from "../assets/mouse.jpg";
+import bluetoothSpeakerImg from "../assets/speaker.jpg";
+import smartWatchImg from "../assets/smartwatch.jpg";
 
 const colors = [
   { key: 1, color: "White" },

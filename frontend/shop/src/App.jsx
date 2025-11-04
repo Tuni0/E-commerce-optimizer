@@ -114,13 +114,9 @@ function App() {
                 element={
                   <>
                     <Navbar />
-                    <RouteGuard user={user}>
-                      <Skills />
-                    </RouteGuard>
+                    <RouteGuard user={user}></RouteGuard>
 
                     <Products />
-
-                    <Contact />
                   </>
                 }
               />

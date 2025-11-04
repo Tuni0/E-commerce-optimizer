@@ -4,8 +4,12 @@ import { UserLoginContext, BasketContext } from "../App.jsx";
 import axios from "axios";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { BsBasket2 } from "react-icons/bs";
-import { API_URL } from "../settings";
+import "dotenv/config";
 import { Link } from "react-router-dom";
+import wirelessHeadphonesImg from "../assets/wireless-headphones.jpg";
+import wirelessMouseImg from "../assets/wireless-mouse.jpg";
+import bluetoothSpeakerImg from "../assets/bluetooth-speaker.jpg";
+import smartWatchImg from "../assets/smart-watch.jpg";
 
 const colors = [
   { key: 1, color: "White" },
@@ -45,7 +49,7 @@ const Products = () => {
 
     const fetchProducts = async () => {
       try {
-        const result = await axios.get(`${API_URL}/products`);
+        const result = await axios.get(`${process.env.VITE_API_URL}/products`);
         console.log("Fetched products:", result.data); // 👈 dodaj to
 
         if (isMounted) {
@@ -63,6 +67,44 @@ const Products = () => {
     };
   }, []); // Fetch products once on mount
 
+  // przykładowe dane produktów
+  const placeholderProducts = [
+    {
+      id: 1,
+      name: "Wireless Headphones",
+      description: "Komfortowe słuchawki z redukcją szumów",
+      price: 199,
+      imgSrc: wirelessHeadphonesImg,
+      imgAlt: "Wireless Headphones",
+    },
+    {
+      id: 2,
+      name: "Smart Watch",
+      description: "Zegarek z czujnikiem tętna i GPS",
+      price: 149,
+      imgSrc: smartWatchImg,
+      imgAlt: "Smart Watch",
+    },
+    {
+      id: 3,
+      name: "Bluetooth Speaker",
+      description: "Przenośny głośnik o czystym brzmieniu",
+      price: 89,
+      imgSrc: bluetoothSpeakerImg,
+      imgAlt: "Bluetooth Speaker",
+    },
+    {
+      id: 4,
+      name: "Gaming Mouse",
+      description: "Precyzyjna mysz z podświetleniem RGB",
+      price: 59,
+      imgSrc: wirelessMouseImg,
+      imgAlt: "Gaming Mouse",
+    },
+  ];
+
+  // użyj tej tablicy zamiast zapytania do bazy
+  const productsToRender = placeholderProducts;
   const memoizedProducts = useMemo(() => products, [products]);
 
   const handleHeartClick = (id) => {
@@ -73,7 +115,7 @@ const Products = () => {
 
     axios
       .post(
-        `${API_URL}/products/${id}/favourite`,
+        `${process.env.VITE_API_URL}/products/${id}/favourite`,
         {},
         { withCredentials: true }
       )
@@ -99,7 +141,7 @@ const Products = () => {
 
     axios
       .post(
-        `${API_URL}/products/${id}/basket`,
+        `${process.env.VITE_API_URL}/products/${id}/basket`,
         {
           color: selectedColor,
           size: selectedSize,
@@ -219,70 +261,19 @@ const Products = () => {
 
         <div className="flex-1">
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 p-8">
-            {memoizedProducts.map((product, index) => (
-              <div
-                key={product.idproducts ?? `fallback-${index}`}
-                className="group"
-              >
+            {productsToRender.map((product, index) => (
+              <div key={product.id ?? `fallback-${index}`} className="group">
                 <div className="relative group">
                   <Link to={`/products/${product.id}`}>
                     <img
                       alt={product.imgAlt}
-                      src={
-                        product.imgSrc?.includes("github.com")
-                          ? product.imgSrc
-                              .replace(
-                                "https://github.com/",
-                                "https://raw.githubusercontent.com/"
-                              )
-                              .replace("/blob/", "/")
-                              .split("?")[0] // usuwa ?raw=true
-                          : product.imgSrc
-                      }
+                      src={product.imgSrc}
                       className="z-0 relative aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]"
                     />
                   </Link>
-
-                  <button
-                    className="absolute z-1 top-2 right-16 flex items-center justify-center bg-white dark:bg-neutral-800 rounded-full p-1 shadow-md hover:bg-gray-200 dark:hover:bg-neutral-700 "
-                    onClick={() => handleHeartClick(product.id)}
-                    onMouseEnter={(e) =>
-                      e.currentTarget.parentElement.classList.remove(
-                        "group-hover:opacity-75"
-                      )
-                    }
-                    onMouseLeave={(e) =>
-                      e.currentTarget.parentElement.classList.add(
-                        "group-hover:opacity-75"
-                      )
-                    }
-                  >
-                    <HeartIcon
-                      className="h-6 w-6 text-gray-900 dark:text-white"
-                      aria-hidden="true"
-                    />
-                  </button>
-                  <button
-                    className="absolute z-1 top-2 right-2 flex items-center justify-center bg-white dark:bg-neutral-800 rounded-full p-1 shadow-md hover:bg-gray-200 dark:hover:bg-neutral-700"
-                    onClick={(e) => handleBasketClick(e, product.id)}
-                    onMouseEnter={(e) =>
-                      e.currentTarget.parentElement.classList.remove(
-                        "group-hover:opacity-75"
-                      )
-                    }
-                    onMouseLeave={(e) =>
-                      e.currentTarget.parentElement.classList.add(
-                        "group-hover:opacity-75"
-                      )
-                    }
-                  >
-                    <BsBasket2
-                      className="h-6 w-6 text-gray-900 dark:text-white"
-                      aria-hidden="true"
-                    />
-                  </button>
                 </div>
-                <a href={`products/${product.idproducts}`}>
+
+                <a href={`products/${product.id}`}>
                   <h3 className="mt-4 text-sm text-gray-700 dark:text-gray-300">
                     {product.name}
                   </h3>

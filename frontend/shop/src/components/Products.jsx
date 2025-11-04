@@ -4,7 +4,6 @@ import { UserLoginContext, BasketContext } from "../App.jsx";
 import axios from "axios";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { BsBasket2 } from "react-icons/bs";
-import "dotenv/config";
 import { Link } from "react-router-dom";
 import wirelessHeadphonesImg from "../assets/wireless-headphones.jpg";
 import wirelessMouseImg from "../assets/wireless-mouse.jpg";
@@ -49,7 +48,9 @@ const Products = () => {
 
     const fetchProducts = async () => {
       try {
-        const result = await axios.get(`${process.env.VITE_API_URL}/products`);
+        const result = await axios.get(
+          `${import.meta.env.VITE_API_URL}/products`
+        );
         console.log("Fetched products:", result.data); // 👈 dodaj to
 
         if (isMounted) {
@@ -115,7 +116,7 @@ const Products = () => {
 
     axios
       .post(
-        `${process.env.VITE_API_URL}/products/${id}/favourite`,
+        `${import.meta.env.VITE_API_URL}/products/${id}/favourite`,
         {},
         { withCredentials: true }
       )
@@ -141,7 +142,7 @@ const Products = () => {
 
     axios
       .post(
-        `${process.env.VITE_API_URL}/products/${id}/basket`,
+        `${import.meta.env.VITE_API_URL}/products/${id}/basket`,
         {
           color: selectedColor,
           size: selectedSize,

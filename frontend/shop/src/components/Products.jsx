@@ -1,14 +1,11 @@
 import React, { useMemo, useEffect, useState, useContext } from "react";
 import { useTheme } from ".././ThemeContext.jsx";
-import { UserLoginContext, BasketContext } from "../App.jsx";
 import axios from "axios";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { BsBasket2 } from "react-icons/bs";
+import { API_URL } from "../settings";
 import { Link } from "react-router-dom";
-import wirelessHeadphonesImg from "../assets/headphones.jpg";
-import wirelessMouseImg from "../assets/mouse.jpg";
-import bluetoothSpeakerImg from "../assets/speaker.jpg";
-import smartWatchImg from "../assets/smartwatch.jpg";
+import { ProductsContext } from "./ProductsContext.jsx";
 
 const colors = [
   { key: 1, color: "White" },
@@ -34,79 +31,12 @@ const sizes = [
 
 const Products = () => {
   const { theme } = useTheme();
-  const [products, setProducts] = useState([]);
-  const { user } = useContext(UserLoginContext);
-  const { setIsBasket } = useContext(BasketContext); // Use BasketContext
+  const { products } = useContext(ProductsContext);
 
   const [selectedColor, setSelectedColor] = useState("white");
   const [selectedSize, setSelectedSize] = useState("m");
 
-  axios.defaults.withCredentials = true;
-
-  useEffect(() => {
-    let isMounted = true; // flag to track if the component is mounted
-
-    const fetchProducts = async () => {
-      try {
-        const result = await axios.get(
-          `${import.meta.env.VITE_API_URL}/products`
-        );
-        console.log("Fetched products:", result.data); // 👈 dodaj to
-
-        if (isMounted) {
-          setProducts(result.data);
-        }
-      } catch (err) {
-        console.log("Error:", err);
-      }
-    };
-
-    fetchProducts();
-
-    return () => {
-      isMounted = false; // cleanup function to set the flag to false
-    };
-  }, []); // Fetch products once on mount
-
-  // przykładowe dane produktów
-  const placeholderProducts = [
-    {
-      id: 1,
-      name: "Wireless Headphones",
-      description: "Komfortowe słuchawki z redukcją szumów",
-      price: 199,
-      imgSrc: wirelessHeadphonesImg,
-      imgAlt: "Wireless Headphones",
-    },
-    {
-      id: 2,
-      name: "Smart Watch",
-      description: "Zegarek z czujnikiem tętna i GPS",
-      price: 149,
-      imgSrc: smartWatchImg,
-      imgAlt: "Smart Watch",
-    },
-    {
-      id: 3,
-      name: "Bluetooth Speaker",
-      description: "Przenośny głośnik o czystym brzmieniu",
-      price: 89,
-      imgSrc: bluetoothSpeakerImg,
-      imgAlt: "Bluetooth Speaker",
-    },
-    {
-      id: 4,
-      name: "Gaming Mouse",
-      description: "Precyzyjna mysz z podświetleniem RGB",
-      price: 59,
-      imgSrc: wirelessMouseImg,
-      imgAlt: "Gaming Mouse",
-    },
-  ];
-
-  // użyj tej tablicy zamiast zapytania do bazy
-  const productsToRender = placeholderProducts;
-  const memoizedProducts = useMemo(() => products, [products]);
+  if (!products) return <div>Loading...</div>; // pierwszy render
 
   const handleHeartClick = (id) => {
     if (!user) {
@@ -116,7 +46,7 @@ const Products = () => {
 
     axios
       .post(
-        `${import.meta.env.VITE_API_URL}/products/${id}/favourite`,
+        `${API_URL}/products/${id}/favourite`,
         {},
         { withCredentials: true }
       )
@@ -126,40 +56,6 @@ const Products = () => {
       })
       .catch((err) => {
         console.error("Favourite add failed:", err);
-        if (err.response?.status === 401) {
-          alert("Session expired. Please log in again.");
-        }
-      });
-  };
-
-  const handleBasketClick = (e, id) => {
-    e.preventDefault();
-
-    if (!user) {
-      alert("Please log in to add items to the basket!");
-      return;
-    }
-
-    axios
-      .post(
-        `${import.meta.env.VITE_API_URL}/products/${id}/basket`,
-        {
-          color: selectedColor,
-          size: selectedSize,
-        },
-        {
-          withCredentials: true, // ⬅️ WAŻNE dla sesji Springa
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        console.log("Added to basket:", res.data);
-        setIsBasket(true);
-      })
-      .catch((err) => {
-        console.error("Basket add failed:", err);
         if (err.response?.status === 401) {
           alert("Session expired. Please log in again.");
         }
@@ -262,19 +158,61 @@ const Products = () => {
 
         <div className="flex-1">
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 p-8">
-            {productsToRender.map((product, index) => (
-              <div key={product.id ?? `fallback-${index}`} className="group">
+            {products.map((product, index) => (
+              <div
+                key={product.idproducts ?? `fallback-${index}`}
+                className="group"
+              >
                 <div className="relative group">
                   <Link to={`/products/${product.id}`}>
                     <img
+                      loading="lazy"
                       alt={product.imgAlt}
-                      src={product.imgSrc}
+                      src={`assets/${product.imgSrc}`}
                       className="z-0 relative aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]"
                     />
                   </Link>
-                </div>
 
-                <a href={`products/${product.id}`}>
+                  <button
+                    className="absolute z-20 top-2 right-16 flex items-center justify-center bg-white dark:bg-neutral-800 rounded-full p-1 shadow-md hover:bg-gray-200 dark:hover:bg-neutral-700 "
+                    onClick={() => handleHeartClick(product.id)}
+                    onMouseEnter={(e) =>
+                      e.currentTarget.parentElement.classList.remove(
+                        "group-hover:opacity-75"
+                      )
+                    }
+                    onMouseLeave={(e) =>
+                      e.currentTarget.parentElement.classList.add(
+                        "group-hover:opacity-75"
+                      )
+                    }
+                  >
+                    <HeartIcon
+                      className="h-6 w-6 text-gray-900 dark:text-white"
+                      aria-hidden="true"
+                    />
+                  </button>
+                  <button
+                    className="absolute z-20 top-2 right-2 flex items-center justify-center bg-white dark:bg-neutral-800 rounded-full p-1 shadow-md hover:bg-gray-200 dark:hover:bg-neutral-700"
+                    onClick={(e) => handleBasketClick(e, product.id)}
+                    onMouseEnter={(e) =>
+                      e.currentTarget.parentElement.classList.remove(
+                        "group-hover:opacity-75"
+                      )
+                    }
+                    onMouseLeave={(e) =>
+                      e.currentTarget.parentElement.classList.add(
+                        "group-hover:opacity-75"
+                      )
+                    }
+                  >
+                    <BsBasket2
+                      className="h-6 w-6 text-gray-900 dark:text-white"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
+                <a href={`products/${product.idproducts}`}>
                   <h3 className="mt-4 text-sm text-gray-700 dark:text-gray-300">
                     {product.name}
                   </h3>

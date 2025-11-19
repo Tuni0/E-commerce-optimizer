@@ -5,9 +5,13 @@ import ThemeSwitcher from "./ThemeSwitcher.jsx";
 import { motion } from "framer-motion";
 import { BsBasket, BsHeart, BsCreditCard } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { UserLoginContext } from "../App.jsx";
+import Login from "./Login.jsx";
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user } = useContext(UserLoginContext); // Ensure setUser is defined
+
   const navigate = useNavigate();
 
   const handleHome = (e) => {
@@ -15,6 +19,7 @@ function Navbar() {
 
     navigate("/");
   };
+
   return (
     <div className="sticky top-4 z-10 w-full bg-gray-100/70 dark:bg-neutral-800/70 backdrop-blur-md rounded-3xl mx-auto w-fit shadow-lg border border-white/20">
       <header>
@@ -32,7 +37,20 @@ function Navbar() {
               <span className="font-abeezee font-semibold">WebShop</span>
             </button>
           </div>
+          <div className="flex lg:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 cursor-pointer"
+            >
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon aria-hidden="true" className="size-6" />
+            </button>
+          </div>
 
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end pr-8">
+            <Login />
+          </div>
           {/* Hamburger icon (mobile) */}
           <div className="flex lg:hidden">
             <button

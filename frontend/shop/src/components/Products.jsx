@@ -34,6 +34,8 @@ export const ProductCard = React.memo(function ProductCard({
         <Link to={`/products/${product.id}`}>
           <img
             loading="lazy"
+            width="800"
+            height="800"
             alt={product.imgAlt}
             src={`/assets/${product.imgSrc}`}
             className="z-0 relative aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]"

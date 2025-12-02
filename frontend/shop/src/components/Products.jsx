@@ -32,14 +32,16 @@ export const ProductCard = React.memo(function ProductCard({
     <div className="group">
       <div className="relative group">
         <Link to={`/products/${product.id}`}>
-          <img
-            loading="lazy"
-            width="800"
-            height="800"
-            alt={product.imgAlt}
-            src={`/assets/${product.imgSrc}`}
-            className="z-0 relative aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75"
-          />
+          <div className="aspect-square w-full rounded-lg overflow-hidden bg-gray-200">
+            <img
+              loading="lazy"
+              width="800"
+              height="800"
+              alt={product.imgAlt}
+              src={`/assets/${product.imgSrc}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
         </Link>
 
         {/* HEART BTN */}

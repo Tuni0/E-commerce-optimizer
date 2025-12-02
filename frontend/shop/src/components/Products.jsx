@@ -63,7 +63,7 @@ export const ProductCard = React.memo(function ProductCard({
         <h3 className="mt-4 text-sm text-gray-700 dark:text-gray-300">
           {product.name}
         </h3>
-        <p className="mt-1 text-lg text-gray-900 dark:text-white">
+        <p class="mt-1 text-lg text-gray-900 dark:text-white line-clamp-2">
           {product.description}
         </p>
         <p className="mt-1 text-lg font-medium text-gray-900 dark:text-white">

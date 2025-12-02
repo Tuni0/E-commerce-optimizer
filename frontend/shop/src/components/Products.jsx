@@ -1,10 +1,12 @@
-import React, { useMemo, useEffect, useState, useContext } from "react";
-import { useTheme } from ".././ThemeContext.jsx";
+import { useContext } from "react";
 import axios from "axios";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { BsBasket2 } from "react-icons/bs";
-import { API_URL } from "../settings";
 import { Link } from "react-router-dom";
+
+import { API_URL } from "../settings";
+import { useTheme } from ".././ThemeContext.jsx";
+
 import { ProductsContext } from "./ProductsContext.jsx";
 
 const colors = [

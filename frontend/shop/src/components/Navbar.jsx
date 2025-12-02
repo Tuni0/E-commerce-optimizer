@@ -1,11 +1,12 @@
-import React, { useEffect, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import ThemeSwitcher from "./ThemeSwitcher.jsx";
 import { motion } from "framer-motion";
-import { BsBasket, BsHeart, BsCreditCard } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+
 import { UserLoginContext } from "../App.jsx";
+
+import ThemeSwitcher from "./ThemeSwitcher.jsx";
 import Login from "./Login.jsx";
 
 function Navbar() {

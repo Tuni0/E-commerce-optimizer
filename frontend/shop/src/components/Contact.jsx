@@ -1,7 +1,4 @@
-import { BsGithub } from "react-icons/bs";
-import { BsLinkedin } from "react-icons/bs";
-import { BsHeartFill } from "react-icons/bs";
-import React from "react";
+import { BsGithub, BsLinkedin, BsHeartFill } from "react-icons/bs";
 
 const sections = [
   {

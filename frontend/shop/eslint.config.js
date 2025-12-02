@@ -1,18 +1,58 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import pluginReact from "eslint-plugin-react";
+import js from "@eslint/js";
+import reactPlugin from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import jsxA11y from "eslint-plugin-jsx-a11y";
+import importPlugin from "eslint-plugin-import";
 
-/** @type {import('eslint').Linter.Config[]} */
 export default [
-  { files: ["**/*.{js,mjs,cjs,jsx}"] },
-  { languageOptions: { globals: globals.browser } },
+  js.configs.recommended,
+
   {
+    files: ["**/*.js", "**/*.jsx"],
+
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        browser: true,
+      },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+
+    plugins: {
+      react: reactPlugin,
+      "react-hooks": reactHooks,
+      "jsx-a11y": jsxA11y,
+      import: importPlugin,
+    },
+
     settings: {
       react: {
         version: "detect",
       },
     },
+
+    rules: {
+      // Fixowalne
+      "no-unused-vars": "warn",
+      "import/no-duplicates": "warn",
+      "import/order": [
+        "warn",
+        {
+          "newlines-between": "always",
+        },
+      ],
+
+      // React
+      "react/react-in-jsx-scope": "off", // Vite/React 18 nie wymaga React w imporcie
+      "react/prop-types": "off",
+
+      // JSX A11y
+      "jsx-a11y/no-noninteractive-element-interactions": "warn",
+    },
   },
-  pluginJs.configs.recommended,
-  pluginReact.configs.flat.recommended,
 ];

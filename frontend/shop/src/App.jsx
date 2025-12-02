@@ -1,5 +1,7 @@
-import React, { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
+
 import Navbar from "./components/Navbar.jsx";
 import ItemPage from "./components/ItemPage.jsx";
 import "./App.css";
@@ -9,7 +11,6 @@ import { ThemeProvider } from "./ThemeContext"; // corrected import path
 import { ProductsProvider } from "./components/ProductsContext.jsx";
 import SignInForm from "./components/SignInForm.jsx";
 import SignUpForm from "./components/SignUpForm.jsx";
-import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export const UserLoginContext = createContext({

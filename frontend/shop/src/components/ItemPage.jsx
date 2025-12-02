@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useTheme } from ".././ThemeContext.jsx";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { Radio, RadioGroup } from "@headlessui/react";
+
+import { useTheme } from ".././ThemeContext.jsx";
 import { API_URL } from "../settings";
 
 const reviews = { href: "#", average: 4, totalCount: 117 };

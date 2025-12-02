@@ -32,14 +32,14 @@ export const ProductCard = React.memo(function ProductCard({
     <div className="group">
       <div className="relative group">
         <Link to={`/products/${product.id}`}>
-          <div className="aspect-square w-full rounded-lg overflow-hidden bg-gray-200">
+          <div className="relative w-full rounded-lg overflow-hidden bg-gray-200">
+            {/* kwadrat przez padding-top 100% */}
+            <div className="pt-[100%]" />
             <img
               loading="lazy"
-              width="800"
-              height="800"
               alt={product.imgAlt}
               src={`/assets/${product.imgSrc}`}
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
         </Link>

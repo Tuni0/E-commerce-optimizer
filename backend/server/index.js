@@ -11,7 +11,7 @@ import "dotenv/config";
 const app = express();
 app.use(
   cors({
-    origin: "https://e-commerce-optimizer.vercel.app", // tylko frontendowy adres
+    origin: "http://localhost:5173", // tylko frontendowy adres
     credentials: true,
   })
 );
@@ -254,6 +254,7 @@ app.get("/basketItems", async (req, res) => {
     // 🔧 Ujednolicamy strukturę danych tak, żeby pasowała do frontu
     const formatted = result.rows.map((row) => ({
       id: row.id,
+      product_id: row.product_id, // ⬅️ DODAJ TO
       quantity: row.quantity,
       color: row.color,
       size: row.size,
@@ -271,7 +272,21 @@ app.get("/basketItems", async (req, res) => {
     res.status(500).send("Error fetching basket items");
   }
 });
+app.put("/basket/updateQuantity", async (req, res) => {
+  try {
+    const { basketId, quantity } = req.body;
 
+    await pool.query(`UPDATE basket SET quantity = $1 WHERE id = $2`, [
+      quantity,
+      basketId,
+    ]);
+
+    res.json({ message: "Quantity updated" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Update failed");
+  }
+});
 app.get("/checkout", isAuthenticated, async (req, res) => {
   try {
     const userId = req.session.userId;

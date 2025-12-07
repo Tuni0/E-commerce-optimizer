@@ -38,7 +38,7 @@ export const ProductCard = React.memo(function ProductCard({
             <img
               loading="lazy"
               alt={product.imgAlt}
-              src={`/assets/${product.imgSrc}`}
+              src={`https://bxzunvkwuzfhymlloazq.supabase.co/storage/v1/object/public/products-images/${product.imgSrc}?width=300&quality=60&format=webp  `}
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>

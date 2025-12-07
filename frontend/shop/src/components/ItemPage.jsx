@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { Radio, RadioGroup } from "@headlessui/react";
-
+import { useContext } from "react";
+import { BasketContext } from "../App.jsx";
 import { useTheme } from ".././ThemeContext.jsx";
 import { API_URL } from "../settings";
 
@@ -38,6 +39,7 @@ function ItemPage() {
   const [products, setProducts] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+  const { setIsBasket } = useContext(BasketContext);
 
   useEffect(() => {
     const number = window.location.pathname.split("/")[2];
@@ -88,7 +90,7 @@ function ItemPage() {
         <div className="">
           <img
             alt={products.imgAlt}
-            src={products.imgSrc}
+            src={`https://bxzunvkwuzfhymlloazq.supabase.co/storage/v1/object/public/products-images/${product.imgSrc}?width=300&quality=60&format=webp`}
             className="aspect-square max-w-screen-md rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]"
           />
         </div>

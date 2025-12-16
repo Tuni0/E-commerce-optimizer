@@ -90,7 +90,7 @@ function ItemPage() {
         <div className="">
           <img
             alt={products.imgAlt}
-            src={`https://bxzunvkwuzfhymlloazq.supabase.co/storage/v1/object/public/products-images/${product.imgSrc}?width=300&quality=60&format=webp`}
+            src={`/assets/${[product.imgSrc]}`}
             className="aspect-square max-w-screen-md rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]"
           />
         </div>

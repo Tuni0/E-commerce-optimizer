@@ -36,9 +36,8 @@ export const ProductCard = React.memo(function ProductCard({
             {/* kwadrat przez padding-top 100% */}
             <div className="pt-[100%]" />
             <img
-              loading="lazy"
               alt={product.imgAlt}
-              src={`https://bxzunvkwuzfhymlloazq.supabase.co/storage/v1/object/public/products-images/${product.imgSrc}?width=300&quality=60&format=webp  `}
+              src={`public/assets/${[product.imgSrc]}`}
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>

@@ -37,7 +37,7 @@ export const ProductCard = React.memo(function ProductCard({
             <div className="pt-[100%]" />
             <img
               alt={product.imgAlt}
-              src={`public/assets/${[product.imgSrc]}`}
+              src={`/assets/${[product.imgSrc]}`}
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>

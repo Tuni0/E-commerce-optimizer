@@ -90,7 +90,7 @@ function ItemPage() {
         <div className="">
           <img
             alt={products.imgAlt}
-            src={`/assets/${[product.imgSrc]}`}
+            src={`/assets/${[products.imgSrc]}`}
             className="aspect-square max-w-screen-md rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]"
           />
         </div>

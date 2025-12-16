@@ -11,7 +11,10 @@ import "dotenv/config";
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173", // tylko frontendowy adres
+    origin: [
+      "http://localhost:5173",
+      "https://e-commerce-optimizer.vercel.app",
+    ],
     credentials: true,
   })
 );

@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { Radio, RadioGroup } from "@headlessui/react";
+import { useContext } from "react";
 import { BasketContext } from "../App.jsx";
 import { useTheme } from ".././ThemeContext.jsx";
 import { API_URL } from "../settings";
@@ -122,7 +123,7 @@ function ItemPage() {
                         reviews.average > rating
                           ? "text-gray-900 dark:text-gray-200"
                           : "text-gray-200 dark:text-gray-600",
-                        "size-5 shrink-0",
+                        "size-5 shrink-0"
                       )}
                     />
                   ))}
@@ -157,14 +158,14 @@ function ItemPage() {
                         aria-label={color.name}
                         className={classNames(
                           color.selectedClass,
-                          "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none data-[checked]:ring-2 data-[focus]:data-[checked]:ring data-[focus]:data-[checked]:ring-offset-1",
+                          "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none data-[checked]:ring-2 data-[focus]:data-[checked]:ring data-[focus]:data-[checked]:ring-offset-1"
                         )}
                       >
                         <span
                           aria-hidden="true"
                           className={classNames(
                             color.class,
-                            "size-8 rounded-full border border-black/10",
+                            "size-8 rounded-full border border-black/10"
                           )}
                         />
                       </Radio>
@@ -202,7 +203,7 @@ function ItemPage() {
                           size.inStock
                             ? "cursor-pointer bg-white dark:bg-neutral-900 text-gray-900 shadow-sm"
                             : "cursor-not-allowed bg-gray-50 dark:bg-neutral-800 text-gray-200",
-                          "group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none data-[focus]:ring-2 data-[focus]:ring-indigo-500 sm:flex-1 sm:py-6 dark:text-white dark:hover:bg-neutral-800 dark:focus:ring-neutral-800",
+                          "group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none data-[focus]:ring-2 data-[focus]:ring-indigo-500 sm:flex-1 sm:py-6 dark:text-white dark:hover:bg-neutral-800 dark:focus:ring-neutral-800"
                         )}
                       >
                         <span>{size.name}</span>

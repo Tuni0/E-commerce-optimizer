@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { BsBasket } from "react-icons/bs";
 import axios from "axios";
 import { API_URL } from "../settings";
+import { useEffect } from "react";
 import { UserLoginContext } from "../App.jsx";
 import { BasketContext } from "../App.jsx";
 import ThemeSwitcher from "./ThemeSwitcher.jsx";

@@ -36,6 +36,7 @@ export const ProductCard = React.memo(function ProductCard({
             {/* kwadrat przez padding-top 100% */}
             <div className="pt-[100%]" />
             <img
+              loading="lazy"
               alt={product.imgAlt}
               src={`/assets/${[product.imgSrc]}`}
               className="absolute inset-0 w-full h-full object-cover"

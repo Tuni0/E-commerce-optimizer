@@ -89,6 +89,7 @@ function ItemPage() {
       <div className="inline-block lg:flex lg:flex-1 lg:flex-row ">
         <div className="">
           <img
+            loading="lazy"
             alt={products.imgAlt}
             src={`/assets/${[products.imgSrc]}`}
             className="aspect-square max-w-screen-md rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-[7/8]"

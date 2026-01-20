@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import React from "react";
 
 import { API_URL } from "../settings";
 
@@ -21,7 +22,7 @@ function SignInForm() {
             "Content-Type": "application/json",
           },
           withCredentials: true, // jeśli backend używa sesji/cookies
-        }
+        },
       )
 
       .then((result) => {

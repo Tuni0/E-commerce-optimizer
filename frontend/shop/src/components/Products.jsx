@@ -90,13 +90,13 @@ const Products = () => {
         await axios.post(
           `${API_URL}/products/${id}/favourite`,
           {},
-          { withCredentials: true }
+          { withCredentials: true },
         );
       } catch (err) {
         console.error(err);
       }
     },
-    [user]
+    [user],
   );
 
   const handleBasketClick = useCallback((e, id) => {

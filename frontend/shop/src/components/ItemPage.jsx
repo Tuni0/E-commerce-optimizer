@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { Radio, RadioGroup } from "@headlessui/react";
-import { useContext } from "react";
 import { BasketContext } from "../App.jsx";
 import { useTheme } from ".././ThemeContext.jsx";
 import { API_URL } from "../settings";
